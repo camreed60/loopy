@@ -1,0 +1,63 @@
+Morphology: The study of form and structure
+
+Swarm of One - https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10342118&tag=1&tag=1
+    Motivation: Bottom up robot morphology design through self-organization and morphological computation
+    Inspired by morphogenesis in nature 
+    Polymorphic robot testbed that can be viewed as a robotic swarm and a single robot
+    Loopy can form symmetric shapes consisting of lobes, with the number of lobes influenced by initial noise and dynamic parameters
+    Loopy is a closed chain of identical rotary actuators acting as independent agents
+    Reaction-diffusion equations (specifically the Fitzhugh-Nagumo model), are used to determine Loopy’s shape through the interaction of active, inhibitor, and passive morphogens
+    First experiment shows parametric effects of activator diffusion rate and diffusion ratio on the number of lobes formed by Loopy
+    Second experiment analyzed Loopy’s response to run-time changes in parameters and the hysteresis (delayed) effect observed
+    Discusses properties of the emergent bodies, including radial symmetry, morphological computation, and “inertia” to shape change
+    Future work: Exploration of extracellular environments and the simultaneous generation of morphology and behavior
+
+Loopy Movements - https://arxiv.org/pdf/2409.15187
+    Studying emergent, decentralized movement in multicellular robots, drawing inspiration from the rotation of sunflowers
+    Loopy faces unique challenges in achieving coordinated motion due to its homogenous, physically interlinked cells and lack of specialized components or directional friction
+    3 questions
+        How do Loopy’s rotational motions emerge from local interactions?
+        What role does Loopy’s morphology play in its movement?
+        How resilient is this approach to individual component failures?
+    Use of simulated chemical system with reaction, diffusion, and active transport (similar to plant behavior) for achieving emergent behavior in Loopy
+    Fitzhugh-Nagumo activator-inhibitor model and a purely diffusive morphogen for creating sinusoidal morphological distributions that drive Loopy’s shape and motion
+    Active transport, modeled as a wave equation, maintains continuous motion by propagating morphogen distributions and thus the robots shape around the cellular chain
+    Discretization of the governing partial differential equations for decentralized implementation, allowing each cell to operate using only information from its immediate neighbors 
+    Four experiments conducted to analyze Loopy’s rotation under various conditions, including changes in wave speed, lobe size, the number of lobes, and simulated actuator failures
+    Vicon markers used for tracking individual cell positions and the calculation of angular velocities from this data
+    Four demonstrations:
+        Demonstration of rotation
+            3 lobed Loopy was subjected to step changes in wave speed
+            Observed non-rigid body dynamics with inner valleys rotating faster than outer peaks, contrary to typical rigid body motion
+            Highlights linear relationship between wave speed and angular velocity, with cells rotating opposite to the overall morphology
+        Lobe size experiment
+            Analyzed impact of lobe size on Loopy’s rotation
+            Cessation of rotation when lobes disappear and minimal variation in cellular angular velocity across different lobe sizes
+            Constant angular velocity of Loopy’s morphology relative to its cells, regardless of lobe size
+            Ability to redistribute its rotation between cellular and overall morphology rotation by altering lobe size
+        Number of lobes experiment
+            Investigates the impact of the number of lobes on rotational behavior
+            Increase in cellular angular velocity as the number of lobes decreased, with no environmental rotation observed in a five-lobe configuration
+            Constant angular velocity of Loopy’s morphology relative to its cells, independent of number of lobes
+            Connection between number of lobes and their size due to Loopy’s fixed length, affecting cellular angular velocity
+        Actuator failure experiment
+            Evaluated Loopy’s resilience to both sequential and random actuator failures
+            Loopy maintains rotation until approximately one third of its actuators fail
+            Difference in rotational behavior between sequential and random failure modes, with the former exhibiting a critical failure threshold while the latter showed gradual degradation
+            Increase in turning distance and gradual degradation of morphology as motors fail, plateauing when half the motors are disabled 
+    Summary: demonstrates the emergence of rotation in Loopy from decentralized local interactions and its resilience to significant component failures
+    Future work: Focusing on physical improvements to Loopy, the investigation of translational movements, and the exploration of more complex terrains with obstacles
+
+Cellular Plasticity Model for Bottom-Up Robotic Design - https://arxiv.org/pdf/2408.05604 
+    Cellular plasticity model with an activator-inhibitor reaction augmented by environmental stimuli
+    Model components: factory (activator), product (inhibitor), and environmental consumption
+    Extends model for multi-functional cells with multiple competing factory-product pairs and opposition rates
+    Single stable non-zero equilibrium point for a single-factory model
+    Parametric effects on time constants, need for slower factory growth than product synthesis for sustained stimuli modulation
+    Transient response to short and long-term consumption changes, highlighting distinct behavior for different time scales of demand fluctuation
+    Analyzed effects of symmetric and asymmetric opposition rates on factory steady-state levels in a two-factory cell
+    Fulfilled targeted cellular plasticity phenomena by model, emphasizing self-containment and self-regulation
+    Capture growth driven by product scarcity and functional capacity modulation by sustained stimuli
+    Specialization increasing total capacity phenomenon through single-factory and multi-factory cell analysis
+    Potential application: adapt the rigidity and viscosity of a robot’s morphology based on environmental loads
+    Future work: experimental validation with physical robots, incorporating factory capacity limits, cellular division, and diffusion effects
