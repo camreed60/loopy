@@ -1,7 +1,8 @@
 """
 WVU Interactive Robotics Laboratory
 
-ODE Solver for the 2nd order wave equation with periodic endpoints
+ODE Solver for the 2nd order wave equation with periodic endpoints,
+with a "quiet head, large tail" envelope.
 
 Camndon Reed
 06/02/2025
@@ -42,13 +43,16 @@ def wave_rhs(t, U, c, dx, N):
     return np.concatenate((du_dt, dv_dt))
 
 # Solve u_tt = c^2 u_xx, x exists within the interval [0, L] with periodic boundary conditions
-def solve_wave_periodic(L=1.0, N=200, c=1.0, T=2.0):
+def solve_wave_periodic(L=1.0, N=200, c=1.0, T=2.0, sigma_ratio=0.02, A_r=1.0, A_l=-1.0):
     """
     Inputs
     - L: the end of the interval
     - N: number of grid points
     - c: wave speed
     - T: final time
+    - sigma_ratio: fraction of L for Gaussian width
+    - A_r: amplitude of right-traveling Gaussian
+    - A_l: amplitude of left-traveling Gaussian
     
     Returns
     - x: array of grid points
@@ -58,23 +62,17 @@ def solve_wave_periodic(L=1.0, N=200, c=1.0, T=2.0):
     x = np.linspace(0, L, N, endpoint=False) # N points, dx spacing
     dx = L / N
 
-    # Initial condition: pick any u(x,0) and v(x,0)=u_t(x,0)
-    
-    # EX simple sine wave
-    # m = 1 # number of periods
-    # u0 = np.sin(2*m*np.pi*x/L)
-    # v0 = np.zeros_like(u0)
+    # Center of Gaussian
+    x0 = L / 2.0
 
-    # EX Single traveling sine wave
-    # m = 1 # number of periods
-    # k = 2*np.pi*m / L
-    # u0 = np.sin(k*x)
-    # v0 = -c * k * np.cos(k * x)
+    # Gaussian G(x) and its derivative G'(x)
+    sigma = sigma_ratio*L
+    G = np.exp(- ((x - x0)**2) / (2 * sigma**2))
+    G_prime = -((x - x0) / (sigma**2)) * G
 
-    # EX Gaussian bump that splits into two traveling waves
-    sigma = 0.01*L
-    u0 = np.exp(-((x - L/2)**2) / (2* sigma**2))
-    v0 = np.zeros_like(u0)
+    # Form right and left moving parts
+    u0 = (A_r + A_l) * G
+    v0 = c * (A_l - A_r) * G_prime
 
     # Pack into U0
     U0 = np.concatenate((u0, v0))
@@ -97,12 +95,13 @@ def solve_wave_periodic(L=1.0, N=200, c=1.0, T=2.0):
 # Run and plot
 if __name__ == "__main__":
     # Parameters
-    L = 10 # domain length
-    N = 500 # Number of grid points
-    c = 5.0 # wave speed
+    L = 1 # domain length
+    N = 300 # Number of grid points
+    c = 1.0 # wave speed
     T = 2.0 # final time
+    sigma_ratio = 0.1 # sigma = sigma_ratio * L for the Gaussian
 
-    x, sol = solve_wave_periodic(L, N, c, T)
+    x, sol = solve_wave_periodic(L, N, c, T, sigma_ratio)
 
     # Extract u(x,t) for all time steps
     # sol.y.shape = (2N, Nt), so u_all = sol.y[:N, :]
