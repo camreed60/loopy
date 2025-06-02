@@ -1,4 +1,4 @@
-from dynamixel_lib import Dynamixel, U2D2, XM430W210
+from dynamixel_sdk import *
 import numpy as np
 
 # Constants
