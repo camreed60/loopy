@@ -1,6 +1,8 @@
 import numpy as np
 import time
 import csv
+import matplotlib
+print(matplotlib.get_backend())
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from scipy.integrate import solve_ivp
@@ -69,7 +71,7 @@ DD = 100
 LAMBDA = 0.0
 
 # simulation parameters
-T_END = 500
+T_END = 120
 
 
 # parameter check, print out then have to hit enter to continue

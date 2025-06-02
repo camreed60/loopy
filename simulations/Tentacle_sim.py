@@ -155,7 +155,7 @@ p0 = np.ones(3*N)+ np.random.rand(3*N)*0.01
 y0 = np.concatenate([x0, v0, f0, p0])
 
 # time simulation
-tend = 500.0
+tend = 120.0
 t_span = (0, tend)
 t_eval = np.linspace(*t_span, int(100*tend))
 
